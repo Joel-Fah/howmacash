@@ -1,7 +1,7 @@
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:mon_projet/login.dart';
-import 'package:mon_projet/signup_end.dart';
+import 'package:mon_projet/auth/login.dart';
+import 'package:mon_projet/auth/signup_end.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -24,8 +24,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _confirmPasswordController = TextEditingController();
 
   String usernamePattern =
-      r"^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$";
-  String namePattern = r"^[a-z]+$";
+       r"^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$";
+  String namePattern = r"^[a-zA-Z ]+$";
   String phonePattern = r"^(?=.{9}$)((6|2).*$)";
 
   String emailPattern =
@@ -202,6 +202,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: TextFormField(
+        maxLength: 20,
         enableSuggestions: true,
         decoration: const InputDecoration(
           labelText: "Username",
@@ -224,7 +225,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
           RegExp regex = RegExp(usernamePattern);
           if (!regex.hasMatch(value)) {
-            return "Enter a valid username.\nMust be lowercase letter only.\nCan contain '_' or '.' inside but not outside.";
+            return "Enter a valid username.\n"
+                "Must be alphanumeric characters only.\n"
+                "Must contain '_' or '.' inside but not outside.";
           }
           return null;
         },

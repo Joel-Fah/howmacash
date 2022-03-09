@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mon_projet/login.dart';
-import 'package:mon_projet/onboarding.dart';
 import 'package:mon_projet/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,7 +30,7 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.poppinsTextTheme(
           Theme.of(context).textTheme
         ),
-        primarySwatch: Colors.deepPurple
+        primarySwatch: Colors.deepPurple,
       ),
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),

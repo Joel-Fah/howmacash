@@ -39,6 +39,8 @@ dependencies:
   animated_splash_screen: ^1.2.0
   flutter_svg: ^1.0.3
   shared_preferences: ^2.0.13
+  snippet_coder_utils: ^1.0.11
+  datetime_picker_formfield: ^2.0.0
 
 dev_dependencies:
   flutter_test:

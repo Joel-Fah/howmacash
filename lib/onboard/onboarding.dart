@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mon_projet/content_onboarding.dart';
-import 'package:mon_projet/login.dart';
+import 'package:mon_projet/onboard/content_onboarding.dart';
+import 'package:mon_projet/auth/login.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({Key? key}) : super(key: key);
