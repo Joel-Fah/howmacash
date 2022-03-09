@@ -2,6 +2,8 @@ import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:mon_projet/auth/signup.dart';
 
+import '../home.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -311,13 +313,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       child: TextButton(
                           onPressed: (){
-                            if(!_loginFormKey.currentState!.validate()){
-                              return;
+                            if (_loginFormKey.currentState!.validate()) {
+                              debugPrint("All validations passed!");
+                              //  Go to the next page...
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const HomePage()
+                                  )
+                              );
+                            }else{
+                              debugPrint("Some validations failed... Checkout!");
                             }
                             _loginFormKey.currentState!.save();
-                            print("Username is " +_username!);
-                            print("Email is "+_email!);
-                            print("Password is "+_password!);
                           },
                           child: const Text(
                             "Login",

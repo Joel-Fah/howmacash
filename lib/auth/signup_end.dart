@@ -2,6 +2,7 @@ import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:mon_projet/date_time.dart';
 import 'package:flutter/services.dart';
+import 'package:mon_projet/home.dart';
 import 'package:mon_projet/splash.dart';
 
 class SignUpScreenEnd extends StatefulWidget {
@@ -438,7 +439,7 @@ class _SignUpScreenEndState extends State<SignUpScreenEnd> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const SplashScreen()
+                                    builder: (context) => const HomePage()
                                 )
                             );
                           }else{
