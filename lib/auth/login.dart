@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
         decoration: const InputDecoration(
           labelText: "Username",
           prefixIcon: Icon(
-            BootstrapIcons.person_fill,
+            Icons.person,
             color: Color(0xff2E1C4C),
           ),
           hintText: "Enter username",
@@ -163,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
         decoration: InputDecoration(
             labelText: "Password",
             prefixIcon: const Icon(
-              BootstrapIcons.key_fill,
+              Icons.key,
               color: Color(0xff2E1C4C),
             ),
             hintText: "Enter password",
@@ -178,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 });
               },
               child: Icon(
-                _obscureText ? BootstrapIcons.eye_slash_fill : BootstrapIcons.eye_fill,
+                _obscureText ? Icons.visibility_off : Icons.visibility,
                 color: const Color(0xff2E1C4C),
               ),
             ),
@@ -228,7 +228,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Icon(
-                      BootstrapIcons.person_fill,
+                      Icons.person,
                       size: 100,
                       color: Colors.white,
                     ),

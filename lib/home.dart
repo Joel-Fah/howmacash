@@ -1,6 +1,6 @@
-import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mon_projet/InStock/in_stock.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -66,15 +66,22 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   const Icon(
-                    BootstrapIcons.info_circle,
-                    size: 11,
+                    Icons.info_outline,
+                    size: 13,
+                    color: Color(0xff2E1C4C),
                   )
                 ],
               ),
             ),
             // Tile 1
             GestureDetector(
-              onTap: () => {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const InStockPage()
+                    )
+                );
+              },
               child: Container(
                 height: 150,
                 padding: const EdgeInsets.all(10),
@@ -93,6 +100,8 @@ class HomePage extends StatelessWidget {
                       color: Color(0xffCCCCCC),
                     ),
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
                         Text(
                           "Manage In-Stock",
@@ -103,14 +112,17 @@ class HomePage extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 3,),
-                        Text(
-                          "Lorem Ipsum",
-                          // "Hey, you just got another stock. Quickly register it now and let’s see how we can manage it and be the boss. Let’s Go!",
-                          style: TextStyle(
-                            // fontSize: 10
-                              color: Colors.white
+                        FittedBox(
+                          fit: BoxFit.contain,
+                          child: Text(
+                            "Lorem Ipsum",
+                            // "Hey, you just got another stock. Quickly register it now and let’s see how we can manage it and be the boss. Let’s Go!",
+                            style: TextStyle(
+                              // fontSize: 10
+                                color: Colors.white
+                            ),
+                            textAlign: TextAlign.justify,
                           ),
-                          textAlign: TextAlign.justify,
                         )
                       ],
                     )
@@ -118,7 +130,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            //   Tile 2
+            // Tile 2
             GestureDetector(
               onTap: () => {},
               child: Container(
@@ -139,6 +151,8 @@ class HomePage extends StatelessWidget {
                       color: Color(0xffCCCCCC),
                     ),
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
                         Text(
                           "Manage Orders",
@@ -163,7 +177,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            //  Tile 3
+            // Tile 3
             GestureDetector(
               onTap: () => {},
               child: Container(
@@ -184,6 +198,8 @@ class HomePage extends StatelessWidget {
                       color: Color(0xffCCCCCC),
                     ),
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
                         Text(
                           "View My Situation",
@@ -229,7 +245,7 @@ class HomePage extends StatelessWidget {
     //  Page 3
       const Center(
         child: Icon(
-          Icons.settings,
+          Icons.forum,
           size: 64.0,
           color: Color(0xff2E1C4C),
         ),
@@ -255,9 +271,9 @@ class HomePage extends StatelessWidget {
       // Tab 3
       const Tab(
         icon: Icon(
-          Icons.settings,
+          Icons.forum,
         ),
-        text: "Settings",
+        text: "Chat",
       ),
     ];
 
@@ -269,7 +285,8 @@ class HomePage extends StatelessWidget {
             title: const Text(
               "Howmacash",
               style: TextStyle(
-                fontSize: 30
+                fontSize: 25,
+                fontFamily: 'Autodestruct BB'
               ),
             ),
             backgroundColor: const Color(0xff2E1C4C),

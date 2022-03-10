@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mon_projet/date_time.dart';
 import 'package:flutter/services.dart';
 import 'package:mon_projet/home.dart';
-import 'package:mon_projet/splash.dart';
 
 class SignUpScreenEnd extends StatefulWidget {
   const SignUpScreenEnd({Key? key}) : super(key: key);
@@ -325,9 +324,9 @@ class _SignUpScreenEndState extends State<SignUpScreenEnd> {
           if (value == null || value.isEmpty) {
             return "Size is required.";
           }
-          if (value as int < 0){
-            return "Cannot be negative";
-          }
+          // if (value as int < 0){
+          //   return "Cannot be negative";
+          // }
 
           RegExp regex = RegExp(sizePattern);
           if (!regex.hasMatch(value)) {
@@ -511,8 +510,9 @@ class _SignUpScreenEndState extends State<SignUpScreenEnd> {
                     ),
                   ),
                   const Icon(
-                    BootstrapIcons.info_circle,
-                    size: 11,
+                    Icons.info_outline,
+                    size: 13,
+                    color: Color(0xff2E1C4C),
                   )
                 ],
               ),

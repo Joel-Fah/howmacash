@@ -59,7 +59,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         decoration: const InputDecoration(
           labelText: "Name",
           prefixIcon: Icon(
-            BootstrapIcons.file_person_fill,
+            Icons.badge_rounded,
             color: Color(0xff2E1C4C),
           ),
           hintText: "Enter full name",
@@ -109,7 +109,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         decoration: const InputDecoration(
           labelText: "City",
           prefixIcon: Icon(
-            BootstrapIcons.pin_map_fill,
+            Icons.location_pin,
             color: Color(0xff2E1C4C),
           ),
           hintText: "Enter city name",
@@ -156,7 +156,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         decoration: const InputDecoration(
           labelText: "Phone",
           prefixIcon: Icon(
-            BootstrapIcons.telephone_fill,
+            Icons.phone,
             color: Color(0xff2E1C4C),
           ),
           hintText: "Enter phone number",
@@ -207,7 +207,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         decoration: const InputDecoration(
           labelText: "Username",
           prefixIcon: Icon(
-            BootstrapIcons.person_fill,
+            Icons.person,
             color: Color(0xff2E1C4C),
           ),
           hintText: "Suggest a username",
@@ -315,7 +315,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         decoration: InputDecoration(
           labelText: "Password",
           prefixIcon: const Icon(
-            BootstrapIcons.key_fill,
+            Icons.key,
             color: Color(0xff2E1C4C),
           ),
           hintText: "Enter password",
@@ -331,8 +331,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             },
             child: Icon(
               _obscureText
-                  ? BootstrapIcons.eye_slash_fill
-                  : BootstrapIcons.eye_fill,
+                  ? Icons.visibility_off
+                  : Icons.visibility,
               color: const Color(0xff2E1C4C),
             ),
           ),
@@ -397,8 +397,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             },
             child: Icon(
               _obscureText
-                  ? BootstrapIcons.eye_slash_fill
-                  : BootstrapIcons.eye_fill,
+                  ? Icons.visibility_off
+                  : Icons.visibility,
               color: const Color(0xff2E1C4C),
             ),
           ),
