@@ -1,7 +1,6 @@
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:mon_projet/auth/signup.dart';
-
 import '../home.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -316,7 +315,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (_loginFormKey.currentState!.validate()) {
                               debugPrint("All validations passed!");
                               //  Go to the next page...
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => const HomePage()

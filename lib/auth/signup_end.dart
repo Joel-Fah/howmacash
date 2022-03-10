@@ -436,7 +436,7 @@ class _SignUpScreenEndState extends State<SignUpScreenEnd> {
                           if (_signUpEndFormKey.currentState!.validate()) {
                             debugPrint("All validations passed!");
                             //  Go to the next page...
-                            Navigator.push(
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const HomePage()
