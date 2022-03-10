@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mon_projet/InStock/in_stock.dart';
+import 'package:mon_projet/order/order.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -78,8 +79,7 @@ class HomePage extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const InStockPage()
-                    )
+                    MaterialPageRoute(builder: (context) => const InStockPage())
                 );
               },
               child: Container(
@@ -132,7 +132,12 @@ class HomePage extends StatelessWidget {
             ),
             // Tile 2
             GestureDetector(
-              onTap: () => {},
+              onTap: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const OrderPage())
+                )
+              },
               child: Container(
                 height: 150,
                 padding: const EdgeInsets.all(10),

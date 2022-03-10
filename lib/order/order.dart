@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class InStockPage extends StatelessWidget {
-  const InStockPage({Key? key}) : super(key: key);
+class OrderPage extends StatelessWidget {
+  const OrderPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "In-Stocks",
+          "Orders",
           style: TextStyle(
               fontFamily: 'Autodestruct BB'
           ),
@@ -18,7 +18,13 @@ class InStockPage extends StatelessWidget {
           IconButton(
               onPressed: () => {},
               icon: const Icon(
-                Icons.sort
+                  Icons.sort
+              )
+          ),
+          IconButton(
+              onPressed: () => {},
+              icon: const Icon(
+                  Icons.filter_alt_outlined
               )
           ),
           IconButton(
@@ -29,36 +35,36 @@ class InStockPage extends StatelessWidget {
           ),
           IconButton(
               onPressed: () {
-                  showDialog<void>(
-                    context: context,
-                    barrierDismissible: false,
-                    // false = user must tap button, true = tap outside dialog
-                    builder: (BuildContext dialogContext) {
-                      return AlertDialog(
-                        title: const Text(
-                          'Help',
-                          style: TextStyle(
-                          color: Color(0xff2E1C4C),
-                          fontWeight: FontWeight.w600),
-                        ),
-                        content: const Text(
-                          "Tap on an information card to view full information about that stock and also perform extra operations.",
-                          textAlign: TextAlign.justify,
-                        ),
-                        actions: <Widget>[
+                showDialog<void>(
+                  context: context,
+                  barrierDismissible: false,
+                  // false = user must tap button, true = tap outside dialog
+                  builder: (BuildContext dialogContext) {
+                    return AlertDialog(
+                      title: const Text(
+                        'Help',
+                        style: TextStyle(
+                            color: Color(0xff2E1C4C),
+                            fontWeight: FontWeight.w600),
+                      ),
+                      content: const Text(
+                        "The buttons on the App bar are for sorting, apply a filter and searching respectively.\n\nTap on an information card to view full information about that customer and also perform extra operations.",
+                        textAlign: TextAlign.justify,
+                      ),
+                      actions: <Widget>[
                         TextButton(
                           child: const Text('Ok'),
                           onPressed: () {
                             Navigator.of(dialogContext).pop(); // Dismiss alert dialog
                           },
-                          ),
-                        ],
-                      );
-                    },
-                  );
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
               icon: const Icon(
-                  Icons.info_outline
+                  Icons.info_outline,
               )
           ),
         ],
@@ -89,17 +95,17 @@ class InStockPage extends StatelessWidget {
                     children: [
                       Container(
                         decoration: const BoxDecoration(
-                          color: Color(0xff2E1C4C),
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                          )
+                            color: Color(0xff2E1C4C),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                            )
                         ),
                         padding: const EdgeInsets.only(
-                            top: 10,
-                            bottom: 10,
-                            left: 20,
-                            right: 10,
+                          top: 10,
+                          bottom: 10,
+                          left: 20,
+                          right: 10,
                         ),
                         child: Row(
                           children: [
@@ -109,14 +115,14 @@ class InStockPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: const [
                                   Text(
-                                      "Date Created",
+                                    "Customer's Name",
                                     style: TextStyle(
-                                      color: Colors.white60,
-                                      fontSize: 12
+                                        color: Colors.white60,
+                                        fontSize: 12
                                     ),
                                   ),
                                   Text(
-                                    "10/01/2022",
+                                    "Dejon Fah Joël",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,
@@ -153,56 +159,56 @@ class InStockPage extends StatelessWidget {
                             Text(
                               "ID",
                               style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16
-                              ),
-                            ),
-                            SizedBox(height: 5,),
-                            Text(
-                              "Name",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16
+                                  color: Colors.white,
+                                  fontSize: 16
                               ),
                             ),
                             SizedBox(height: 5,),
                             Text(
                               "Amount",
                               style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16
+                                  color: Colors.white,
+                                  fontSize: 16
                               ),
                             ),
                             SizedBox(height: 5,),
                             Text(
                               "Unit Price",
                               style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16
+                                  color: Colors.white,
+                                  fontSize: 16
                               ),
                             ),
                             SizedBox(height: 5,),
                             Text(
                               "Total Price",
                               style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16
+                                  color: Colors.white,
+                                  fontSize: 16
                               ),
                             ),
                             SizedBox(height: 5,),
                             Text(
                               "Date Ordered",
                               style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16
+                                  color: Colors.white,
+                                  fontSize: 16
+                              ),
+                            ),
+                            SizedBox(height: 5,),
+                            Text(
+                              "Date Due",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16
                               ),
                             ),
                             SizedBox(height: 5,),
                             Text(
                               "Status",
                               style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16
+                                  color: Colors.white,
+                                  fontSize: 16
                               ),
                             ),
                           ],
