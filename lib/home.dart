@@ -99,32 +99,32 @@ class HomePage extends StatelessWidget {
                     const VerticalDivider(
                       color: Color(0xffCCCCCC),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "Manage In-Stock",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Color(0xff2E1C4C),
-                              fontWeight: FontWeight.bold
-                          ),
-                        ),
-                        SizedBox(height: 3,),
-                        FittedBox(
-                          fit: BoxFit.contain,
-                          child: Text(
-                            "Lorem Ipsum",
-                            // "Hey, you just got another stock. Quickly register it now and let’s see how we can manage it and be the boss. Let’s Go!",
+                    SizedBox(
+                      width: 179.0,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            "Manage In-Stock",
                             style: TextStyle(
-                              // fontSize: 10
+                                fontSize: 20,
+                                color: Color(0xff2E1C4C),
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+                          SizedBox(height: 3,),
+                          Text(
+                            // "Lorem Ipsum",
+                            "Hey, you just got another stock. Quickly register it now and let’s see how we can manage it and be the boss. Let’s Go!",
+                            style: TextStyle(
+                              fontSize: 13,
                                 color: Colors.white
                             ),
                             textAlign: TextAlign.justify,
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -155,28 +155,31 @@ class HomePage extends StatelessWidget {
                     const VerticalDivider(
                       color: Color(0xffCCCCCC),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "Manage Orders",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Color(0xff2E1C4C),
-                              fontWeight: FontWeight.bold
+                    SizedBox(
+                      width: 178.0,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            "Manage Orders",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Color(0xff2E1C4C),
+                                fontWeight: FontWeight.bold
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 3,),
-                        Text(
-                          "Lorem Ipsum",
-                          style: TextStyle(
-                            // fontSize: 10
-                              color: Colors.white
-                          ),
-                          textAlign: TextAlign.justify,
-                        )
-                      ],
+                          SizedBox(height: 3,),
+                          Text(
+                            "Lorem Ipsum",
+                            style: TextStyle(
+                              fontSize: 13,
+                                color: Colors.white
+                            ),
+                            textAlign: TextAlign.justify,
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -202,28 +205,31 @@ class HomePage extends StatelessWidget {
                     const VerticalDivider(
                       color: Color(0xffCCCCCC),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "View My Situation",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Color(0xff2E1C4C),
-                              fontWeight: FontWeight.bold
+                    SizedBox(
+                      width: 178.0,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            "View My Situation",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Color(0xff2E1C4C),
+                                fontWeight: FontWeight.bold
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 3,),
-                        Text(
-                          "Lorem Ipsum",
-                          style: TextStyle(
-                            // fontSize: 10
-                              color: Colors.white
-                          ),
-                          textAlign: TextAlign.justify,
-                        )
-                      ],
+                          SizedBox(height: 3,),
+                          Text(
+                            "Lorem Ipsum",
+                            style: TextStyle(
+                              fontSize: 13,
+                                color: Colors.white
+                            ),
+                            textAlign: TextAlign.justify,
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),

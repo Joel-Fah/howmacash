@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mon_projet/InStock/add_in_stock.dart';
 
 class InStockPage extends StatelessWidget {
   const InStockPage({Key? key}) : super(key: key);
@@ -64,7 +65,12 @@ class InStockPage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
+        onPressed: (){
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AddInStockPage())
+          );
+        },
         child: IconButton(
           icon: const Icon(
             Icons.add,
@@ -72,7 +78,6 @@ class InStockPage extends StatelessWidget {
           ),
           onPressed: () => {},
         ),
-        elevation: 0.0,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -138,7 +143,7 @@ class InStockPage extends StatelessWidget {
                       ),
                       Container(
                         alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
                         decoration: const BoxDecoration(
                             color: Color(0xff978EA6),
                             borderRadius: BorderRadius.only(
