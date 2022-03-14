@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mon_projet/InStock/add_in_stock.dart';
 import 'package:mon_projet/home.dart';
-import 'package:mon_projet/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'InStock/add_instock.dart';
 
 int? isViewed; //To enable view once on onboard screens
 

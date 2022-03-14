@@ -271,7 +271,7 @@ class _SignUpScreenEndState extends State<SignUpScreenEnd> {
         validator: (value) {
           if (value == null || value.isEmpty) {
             // return "Bio is required.";
-            value = "Nothing mentioned";
+            value = "N/A";
           }
 
           return null;

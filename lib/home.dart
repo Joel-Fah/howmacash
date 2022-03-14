@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mon_projet/InStock/in_stock.dart';
-import 'package:mon_projet/order/order.dart';
+import 'InStock/in_stock_added.dart';
+import 'order/order_added.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
