@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mon_projet/home.dart';
+import 'package:mon_projet/success_pages/success_instock.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'InStock/add_instock.dart';
@@ -35,8 +36,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
       ),
       debugShowCheckedModeBanner: false,
-      home: const AddInStockPage(),
-      // home: const HomePage(),
+      // home: const AddInStockPage(),
+      home: const SuccessPageInStock(),
       // home: const SplashScreen(),
       // home: isViewed != 0 ? const Onboarding() : const LoginScreen()
     );

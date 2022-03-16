@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mon_projet/order/order_form.dart';
 
 class OrderPage extends StatefulWidget {
   const OrderPage({Key? key}) : super(key: key);
@@ -60,7 +61,8 @@ class _OrderPageState extends State<OrderPage> {
                           TextButton(
                             child: const Text('Ok'),
                             onPressed: () {
-                              Navigator.of(dialogContext).pop(); // Dismiss alert dialog
+                              Navigator.of(dialogContext)
+                                  .pop(); // Dismiss alert dialog
                             },
                           ),
                         ],
@@ -75,7 +77,10 @@ class _OrderPageState extends State<OrderPage> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => {},
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AddOrderPage()));
+          },
           child: IconButton(
             icon: const Icon(
               Icons.add,

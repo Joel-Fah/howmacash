@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mon_projet/home.dart';
 
-class SuccessPage extends StatefulWidget {
-  const SuccessPage({Key? key}) : super(key: key);
+class SuccessOrderPage extends StatefulWidget {
+  const SuccessOrderPage({Key? key}) : super(key: key);
 
   @override
-  _SuccessPageState createState() => _SuccessPageState();
+  _SuccessOrderPageState createState() => _SuccessOrderPageState();
 }
 
-class _SuccessPageState extends State<SuccessPage> {
+class _SuccessOrderPageState extends State<SuccessOrderPage> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(milliseconds: 1500), () => Navigator.pushReplacement(
+    Timer(const Duration(milliseconds: 2000), () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder:
             (context) => const HomePage() // (context) => isViewed != 0 ? const Onboarding() : const LoginScreen() //To enable view once on onboard screens
@@ -39,18 +39,19 @@ class _SuccessPageState extends State<SuccessPage> {
                     fontSize: 35,
                     fontFamily: 'Autodestruct BB',
                     color: Color(0xff2E1C4C),
+                    letterSpacing: 10.0
                 ),
                 textAlign: TextAlign.center,
               ),
               SvgPicture.asset(
-                "assets/images/success.svg"
+                  "assets/images/order.svg"
               ),
               // SizedBox(height: 20,)
               const Text(
-                "Your new stock was successfully added to the database.",
+                "Your new order was successfully added to the database.",
                 style: TextStyle(
-                  fontSize: 20,
-                  color: Color(0xff2E1C4C)
+                    fontSize: 20,
+                    color: Color(0xff2E1C4C)
                 ),
                 textAlign: TextAlign.center,
               )
