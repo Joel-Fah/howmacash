@@ -171,7 +171,7 @@ class HomePage extends StatelessWidget {
                           ),
                           SizedBox(height: 3,),
                           Text(
-                            "Lorem Ipsum",
+                            "Hey! Just got another order on your way? Register it now to not miss it later and let's do our job.",
                             style: TextStyle(
                               fontSize: 13,
                                 color: Colors.white
@@ -221,7 +221,7 @@ class HomePage extends StatelessWidget {
                           ),
                           SizedBox(height: 3,),
                           Text(
-                            "Lorem Ipsum",
+                            "It's time to know whether or not your business has been profitable or not since then.",
                             style: TextStyle(
                               fontSize: 13,
                                 color: Colors.white

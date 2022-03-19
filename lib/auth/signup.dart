@@ -427,169 +427,173 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 250,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(100),
-                  ),
-                  // color: Color(0xff2E1C4C)
-                  gradient: LinearGradient(
-                      colors: [Color(0xff3e3a77), Color(0xff2E1C4C)],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter)),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      BootstrapIcons.person_plus_fill,
-                      size: 100,
-                      color: Colors.white,
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      behavior: HitTestBehavior.translucent,
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: 250,
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(100),
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.only(top: 10),
-                      child: const Text(
-                        "Registration",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold),
+                    // color: Color(0xff2E1C4C)
+                    gradient: LinearGradient(
+                        colors: [Color(0xff3e3a77), Color(0xff2E1C4C)],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter)),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        BootstrapIcons.person_plus_fill,
+                        size: 100,
+                        color: Colors.white,
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // Intro text
-            Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.all(20),
-              child: const Text(
-                "Hey there! Glad to have you here. First, we’ll need you to provide us some personal information. Classical!",
-                style: TextStyle(
-                  // color: Color(0xff707070),
-                  fontSize: 16,
-                ),
-                textAlign: TextAlign.justify,
-              ),
-            ),
-            Form(
-                key: _signUpFormKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    _buildName(),
-                    _buildEmail(),
-                    _buildCity(),
-                    _buildPhone(),
-                    _buildUsername(),
-                    _buildPassword(),
-                    _buildConfirmPassword(),
-                    // Forgot password
-                    Container(
-                      alignment: Alignment.centerRight,
-                      margin: const EdgeInsets.only(top: 5, right: 20),
-                      child: GestureDetector(
+                      Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 10),
                         child: const Text(
-                          "Forgot Password?",
+                          "Registration",
                           style: TextStyle(
-                              fontSize: 12,
-                              color: Color(0xff2E1C4C),
-                              decoration: TextDecoration.underline,
-                              fontStyle: FontStyle.italic),
-                        ),
-                        onTap: () => {},
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    // Login Button
-                    Container(
-                      height: 54,
-                      alignment: Alignment.center,
-                      margin:
-                          const EdgeInsets.only(top: 10, left: 20, right: 20),
-                      decoration: BoxDecoration(
-                          boxShadow: const [
-                            BoxShadow(
-                                offset: Offset(0, 10),
-                                blurRadius: 50,
-                                color: Color(0xffEEEEEE))
-                          ],
-                          // color: Color(0xff2E1C4C),
-                          gradient: const LinearGradient(
-                              colors: [Color(0xff6C63FF), Color(0xff2E1C4C)],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight),
-                          borderRadius: BorderRadius.circular(50)),
-                      child: TextButton(
-                          onPressed: () {
-                            if (_signUpFormKey.currentState!.validate()) {
-                              debugPrint("All validations passed!");
-                            //  Go to the next page...
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const SignUpScreenEnd()
-                                  )
-                              );
-                            }else{
-                              debugPrint("Some validations failed... Checkout!");
-                            }
-                            _signUpFormKey.currentState!.save();
-                          },
-                          child: const Text(
-                            "Continue",
-                            style: TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
-                            ),
-                          )),
-                    )
-                  ],
-                )),
-            // No account yet
-            Container(
-              margin: const EdgeInsets.only(top: 5, bottom: 10, right: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  const Text(
-                    "Already have an account? ",
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Color(0xff707070),
-                    ),
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
                   ),
-                  GestureDetector(
-                    onTap: () => {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginScreen()))
-                    },
-                    child: const Text(
-                      "Login",
+                ),
+              ),
+              // Intro text
+              Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.all(20),
+                child: const Text(
+                  "Hey there! Glad to have you here. First, we’ll need you to provide us some personal information. Classical!",
+                  style: TextStyle(
+                    // color: Color(0xff707070),
+                    fontSize: 16,
+                  ),
+                  textAlign: TextAlign.justify,
+                ),
+              ),
+              Form(
+                  key: _signUpFormKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      _buildName(),
+                      _buildEmail(),
+                      _buildCity(),
+                      _buildPhone(),
+                      _buildUsername(),
+                      _buildPassword(),
+                      _buildConfirmPassword(),
+                      // Forgot password
+                      Container(
+                        alignment: Alignment.centerRight,
+                        margin: const EdgeInsets.only(top: 5, right: 20),
+                        child: GestureDetector(
+                          child: const Text(
+                            "Forgot Password?",
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Color(0xff2E1C4C),
+                                decoration: TextDecoration.underline,
+                                fontStyle: FontStyle.italic),
+                          ),
+                          onTap: () => {},
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      // Login Button
+                      Container(
+                        height: 54,
+                        alignment: Alignment.center,
+                        margin:
+                            const EdgeInsets.only(top: 10, left: 20, right: 20),
+                        decoration: BoxDecoration(
+                            boxShadow: const [
+                              BoxShadow(
+                                  offset: Offset(0, 10),
+                                  blurRadius: 50,
+                                  color: Color(0xffEEEEEE))
+                            ],
+                            // color: Color(0xff2E1C4C),
+                            gradient: const LinearGradient(
+                                colors: [Color(0xff6C63FF), Color(0xff2E1C4C)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight),
+                            borderRadius: BorderRadius.circular(50)),
+                        child: TextButton(
+                            onPressed: () {
+                              if (_signUpFormKey.currentState!.validate()) {
+                                debugPrint("All validations passed!");
+                              //  Go to the next page...
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const SignUpScreenEnd()
+                                    )
+                                );
+                              }else{
+                                debugPrint("Some validations failed... Checkout!");
+                              }
+                              _signUpFormKey.currentState!.save();
+                            },
+                            child: const Text(
+                              "Continue",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                            )),
+                      )
+                    ],
+                  )),
+              // No account yet
+              Container(
+                margin: const EdgeInsets.only(top: 5, bottom: 10, right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const Text(
+                      "Already have an account? ",
                       style: TextStyle(
                         fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xff2E1C4C),
-                        decoration: TextDecoration.underline,
+                        color: Color(0xff707070),
                       ),
                     ),
-                  )
-                ],
-              ),
-            )
-          ],
+                    GestureDetector(
+                      onTap: () => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginScreen()))
+                      },
+                      child: const Text(
+                        "Login",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xff2E1C4C),
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

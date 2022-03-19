@@ -205,177 +205,181 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 300,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(100),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      behavior: HitTestBehavior.translucent,
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: 300,
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(100),
+                    ),
+                    // color: Color(0xff2E1C4C)
+                    gradient: LinearGradient(
+                        colors: [Color(0xff6C63FF), Color(0xff2E1C4C)],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter
+                    )
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.person,
+                        size: 100,
+                        color: Colors.white,
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 10),
+                        child: const Text(
+                          "Login",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                  // color: Color(0xff2E1C4C)
-                  gradient: LinearGradient(
-                      colors: [Color(0xff6C63FF), Color(0xff2E1C4C)],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter
+                ),
+              ),
+              Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.all(20),
+                child: const Text(
+                  "Welcome back, nice to have you here. Please verify your identity and let’s start doing business.",
+                  style: TextStyle(
+                    // color: Color(0xff707070),
+                    fontSize: 16,
+                  ),
+                  textAlign: TextAlign.justify,
+                ),
+              ),
+              Form(
+                  key: _loginFormKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      _buildUsername(),
+                      _buildEmail(),
+                      _buildPassword(),
+                      // Forgot password
+                      Container(
+                        alignment: Alignment.centerRight,
+                        margin: const EdgeInsets.only(top: 5, right: 20),
+                        child: GestureDetector(
+                          child: const Text(
+                            "Forgot Password?",
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Color(0xff2E1C4C),
+                                decoration: TextDecoration.underline,
+                                fontStyle: FontStyle.italic
+                            ),
+                          ),
+                          onTap: () => {},
+                        ),
+                      ),
+                      const SizedBox(height: 10,),
+                      // Login Button
+                      Container(
+                        height: 54,
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(
+                            top: 10,
+                            left: 20,
+                            right: 20
+                        ),
+                        decoration: BoxDecoration(
+                            boxShadow: const [
+                              BoxShadow(
+                                  offset: Offset(0, 10),
+                                  blurRadius: 50,
+                                  color: Color(0xffEEEEEE))
+                            ],
+                            // color: Color(0xff2E1C4C),
+                            gradient: const LinearGradient(
+                                colors: [Color(0xff6C63FF), Color(0xff2E1C4C)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight
+                            ),
+                            borderRadius: BorderRadius.circular(50)
+                        ),
+                        child: TextButton(
+                            onPressed: (){
+                              if (_loginFormKey.currentState!.validate()) {
+                                debugPrint("All validations passed!");
+                                //  Go to the next page...
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const HomePage()
+                                    )
+                                );
+                              }else{
+                                debugPrint("Some validations failed... Checkout!");
+                              }
+                              _loginFormKey.currentState!.save();
+                            },
+                            child: const Text(
+                              "Login",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                            )
+                        ),
+                      )
+                    ],
                   )
               ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+              Container(
+                margin: const EdgeInsets.only(
+                  top: 5,
+                  bottom: 10,
+                  right: 20
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    const Icon(
-                      Icons.person,
-                      size: 100,
-                      color: Colors.white,
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.only(top: 10),
-                      child: const Text(
-                        "Login",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.all(20),
-              child: const Text(
-                "Welcome back, nice to have you here. Please verify your identity and let’s start doing business.",
-                style: TextStyle(
-                  // color: Color(0xff707070),
-                  fontSize: 16,
-                ),
-                textAlign: TextAlign.justify,
-              ),
-            ),
-            Form(
-                key: _loginFormKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    _buildUsername(),
-                    _buildEmail(),
-                    _buildPassword(),
-                    // Forgot password
-                    Container(
-                      alignment: Alignment.centerRight,
-                      margin: const EdgeInsets.only(top: 5, right: 20),
-                      child: GestureDetector(
-                        child: const Text(
-                          "Forgot Password?",
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Color(0xff2E1C4C),
-                              decoration: TextDecoration.underline,
-                              fontStyle: FontStyle.italic
-                          ),
-                        ),
-                        onTap: () => {},
-                      ),
-                    ),
-                    const SizedBox(height: 10,),
-                    // Login Button
-                    Container(
-                      height: 54,
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.only(
-                          top: 10,
-                          left: 20,
-                          right: 20
-                      ),
-                      decoration: BoxDecoration(
-                          boxShadow: const [
-                            BoxShadow(
-                                offset: Offset(0, 10),
-                                blurRadius: 50,
-                                color: Color(0xffEEEEEE))
-                          ],
-                          // color: Color(0xff2E1C4C),
-                          gradient: const LinearGradient(
-                              colors: [Color(0xff6C63FF), Color(0xff2E1C4C)],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight
-                          ),
-                          borderRadius: BorderRadius.circular(50)
-                      ),
-                      child: TextButton(
-                          onPressed: (){
-                            if (_loginFormKey.currentState!.validate()) {
-                              debugPrint("All validations passed!");
-                              //  Go to the next page...
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const HomePage()
-                                  )
-                              );
-                            }else{
-                              debugPrint("Some validations failed... Checkout!");
-                            }
-                            _loginFormKey.currentState!.save();
-                          },
-                          child: const Text(
-                            "Login",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
-                          )
-                      ),
-                    )
-                  ],
-                )
-            ),
-            Container(
-              margin: const EdgeInsets.only(
-                top: 5,
-                bottom: 10,
-                right: 20
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  const Text(
-                    "Don't have an account yet? ",
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: Color(0xff707070),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => {
-                      Navigator.push(context,
-                          MaterialPageRoute(
-                            builder: (context) => const SignUpScreen()
-                          )
-                      )
-                    },
-                    child: const Text(
-                      "Register",
+                    const Text(
+                      "Don't have an account yet? ",
                       style: TextStyle(
                           fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xff2E1C4C),
-                          decoration: TextDecoration.underline,
+                          color: Color(0xff707070),
                       ),
                     ),
-                  )
-                ],
-              ),
-            )
-          ],
+                    GestureDetector(
+                      onTap: () => {
+                        Navigator.push(context,
+                            MaterialPageRoute(
+                              builder: (context) => const SignUpScreen()
+                            )
+                        )
+                      },
+                      child: const Text(
+                        "Register",
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xff2E1C4C),
+                            decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

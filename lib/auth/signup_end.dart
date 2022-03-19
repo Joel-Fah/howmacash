@@ -344,180 +344,184 @@ class _SignUpScreenEndState extends State<SignUpScreenEnd> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 250,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(100),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      behavior: HitTestBehavior.translucent,
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: 250,
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(100),
+                    ),
+                    // color: Color(0xff2E1C4C)
+                    gradient: LinearGradient(
+                        colors: [Color(0xff6C63FF), Color(0xff2E1C4C)],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter),
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        BootstrapIcons.file_earmark_plus,
+                        size: 100,
+                        color: Colors.white,
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 10),
+                        child: const Text(
+                          "Registration",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
                   ),
-                  // color: Color(0xff2E1C4C)
-                  gradient: LinearGradient(
-                      colors: [Color(0xff6C63FF), Color(0xff2E1C4C)],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter),
+                ),
               ),
-              child: Center(
+              Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.all(20),
+                child: const Text(
+                  "You’re almost there. Now we need some basic information about your business.",
+                  style: TextStyle(
+                    // color: Color(0xff707070),
+                    fontSize: 16,
+                  ),
+                  textAlign: TextAlign.justify,
+                ),
+              ),
+              Form(
+                key: _signUpEndFormKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      BootstrapIcons.file_earmark_plus,
-                      size: 100,
-                      color: Colors.white,
+                  children: <Widget>[
+                    _buildProductName(),
+                    _buildLevel(),
+                    _buildSubject(),
+                    _buildDateCreated(),
+                    _buildAbout(),
+                    _buildBusinessSize(),
+                    const SizedBox(
+                      height: 10,
                     ),
+                    // Login Button
                     Container(
+                      height: 54,
                       alignment: Alignment.center,
-                      margin: const EdgeInsets.only(top: 10),
+                      margin:
+                      const EdgeInsets.only(top: 10, left: 20, right: 20),
+                      decoration: BoxDecoration(
+                          boxShadow: const [
+                            BoxShadow(
+                                offset: Offset(0, 10),
+                                blurRadius: 50,
+                                color: Color(0xffEEEEEE))
+                          ],
+                          // color: Color(0xff2E1C4C),
+                          gradient: const LinearGradient(
+                              colors: [Color(0xff6C63FF), Color(0xff2E1C4C)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight),
+                          borderRadius: BorderRadius.circular(50)),
+                      child: TextButton(
+                          onPressed: () {
+                            if (_signUpEndFormKey.currentState!.validate()) {
+                              debugPrint("All validations passed!");
+                              //  Go to the next page...
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const HomePage()
+                                  )
+                              );
+                            }else{
+                              debugPrint("Some validations failed... Checkout!");
+                            }
+                            _signUpEndFormKey.currentState!.save();
+                          },
+                          child: const Text(
+                            "Register",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          )),
+                    )
+                  ],
+                )
+              ),
+              // Why do we need this..?
+              Container(
+                margin: const EdgeInsets.only(
+                    top: 5,
+                    right: 20,
+                    bottom: 10
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () =>
+                      {
+                        showDialog<void>(
+                          context: context,
+                          barrierDismissible:
+                          false,
+                          // false = user must tap button, true = tap outside dialog
+                          builder: (BuildContext dialogContext) {
+                            return AlertDialog(
+                              title: const Text(
+                                'Why do we need this information?',
+                                style: TextStyle(
+                                    color: Color(0xff2E1C4C),
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              content: const Text(
+                                'We use them to carry out analytics and statistics to accompany you in your day to day business transactions. Keep calm, they\'re confidential and secured!',
+                                textAlign: TextAlign.justify,
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text('Ok'),
+                                  onPressed: () {
+                                    Navigator.of(dialogContext)
+                                        .pop(); // Dismiss alert dialog
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        )
+                      },
                       child: const Text(
-                        "Registration",
+                        "Why do we need this information? ",
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold),
+                          fontSize: 12,
+                          color: Color(0xff2E1C4C),
+                          decoration: TextDecoration.underline,
+                        ),
                       ),
                     ),
+                    const Icon(
+                      Icons.info_outline,
+                      size: 13,
+                      color: Color(0xff2E1C4C),
+                    )
                   ],
                 ),
-              ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.all(20),
-              child: const Text(
-                "You’re almost there. Now we need some basic information about your business.",
-                style: TextStyle(
-                  // color: Color(0xff707070),
-                  fontSize: 16,
-                ),
-                textAlign: TextAlign.justify,
-              ),
-            ),
-            Form(
-              key: _signUpEndFormKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  _buildProductName(),
-                  _buildLevel(),
-                  _buildSubject(),
-                  _buildDateCreated(),
-                  _buildAbout(),
-                  _buildBusinessSize(),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  // Login Button
-                  Container(
-                    height: 54,
-                    alignment: Alignment.center,
-                    margin:
-                    const EdgeInsets.only(top: 10, left: 20, right: 20),
-                    decoration: BoxDecoration(
-                        boxShadow: const [
-                          BoxShadow(
-                              offset: Offset(0, 10),
-                              blurRadius: 50,
-                              color: Color(0xffEEEEEE))
-                        ],
-                        // color: Color(0xff2E1C4C),
-                        gradient: const LinearGradient(
-                            colors: [Color(0xff6C63FF), Color(0xff2E1C4C)],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight),
-                        borderRadius: BorderRadius.circular(50)),
-                    child: TextButton(
-                        onPressed: () {
-                          if (_signUpEndFormKey.currentState!.validate()) {
-                            debugPrint("All validations passed!");
-                            //  Go to the next page...
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const HomePage()
-                                )
-                            );
-                          }else{
-                            debugPrint("Some validations failed... Checkout!");
-                          }
-                          _signUpEndFormKey.currentState!.save();
-                        },
-                        child: const Text(
-                          "Register",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
-                        )),
-                  )
-                ],
               )
-            ),
-            // Why do we need this..?
-            Container(
-              margin: const EdgeInsets.only(
-                  top: 5,
-                  right: 20,
-                  bottom: 10
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () =>
-                    {
-                      showDialog<void>(
-                        context: context,
-                        barrierDismissible:
-                        false,
-                        // false = user must tap button, true = tap outside dialog
-                        builder: (BuildContext dialogContext) {
-                          return AlertDialog(
-                            title: const Text(
-                              'Why do we need this information?',
-                              style: TextStyle(
-                                  color: Color(0xff2E1C4C),
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            content: const Text(
-                              'We use them to carry out analytics and statistics to accompany you in your day to day business transactions. Keep calm, they\'re confidential and secured!',
-                              textAlign: TextAlign.justify,
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                child: const Text('Ok'),
-                                onPressed: () {
-                                  Navigator.of(dialogContext)
-                                      .pop(); // Dismiss alert dialog
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      )
-                    },
-                    child: const Text(
-                      "Why do we need this information? ",
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Color(0xff2E1C4C),
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
-                  const Icon(
-                    Icons.info_outline,
-                    size: 13,
-                    color: Color(0xff2E1C4C),
-                  )
-                ],
-              ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
