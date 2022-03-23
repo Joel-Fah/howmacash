@@ -10,7 +10,19 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 class PrintedDateTimeField extends StatelessWidget {
   final format = DateFormat("yyyy-MM-dd HH:mm");
   static String? _dateCreated;
-  static TextEditingController _dateTimeControler = TextEditingController();
+  final TextEditingController _dateTimeController = TextEditingController();
+
+  void dispose(){
+    _dateTimeController.dispose();
+  }
+
+  void initState(){
+    _dateTimeController.addListener(_getDateCreated);
+  }
+
+  _getDateCreated() {
+    return _dateTimeController.text.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +42,7 @@ class PrintedDateTimeField extends StatelessWidget {
       child: Column(children: <Widget>[
         // Text('Basic date & time field (${format.pattern})'),
         DateTimeField(
-          controller: _dateTimeControler,
+          controller: _dateTimeController,
           decoration: InputDecoration(
             border: InputBorder.none,
             labelText: 'Date/Time printed (${format.pattern})',
@@ -58,13 +70,13 @@ class PrintedDateTimeField extends StatelessWidget {
               return currentValue;
             }
           },
-          validator: (DateTime? value) {
+          validator: (value) {
             if (value == null) {
               return "Printed date is required";
             }
             return null;
           },
-          onSaved: (DateTime? value) {
+          onChanged: (value) {
             _dateCreated = value.toString();
           },
         ),
@@ -90,24 +102,26 @@ class _AddInStockPageState extends State<AddInStockPage> {
   String? _unitPrice;
   String? _addInfo;
 
+  String sizePattern = r"^[0-9]*$";
+
   // controller for each form field
-  TextEditingController _productNameController = TextEditingController();
-  TextEditingController _authorControler = TextEditingController();
-  TextEditingController _editionControler = TextEditingController();
-  TextEditingController _amountControler = TextEditingController();
-  TextEditingController _unitPriceControler = TextEditingController();
-  TextEditingController _additionalInfoControler = TextEditingController();
+  final TextEditingController _productNameController = TextEditingController();
+  final TextEditingController _authorController = TextEditingController();
+  final TextEditingController _editionController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
+  final TextEditingController _unitPriceController = TextEditingController();
+  final TextEditingController _additionalInfoController = TextEditingController();
 
   // Dispose controllers
   @override
   void dispose() {
     _productNameController.dispose();
-    _authorControler.dispose();
-    _editionControler.dispose();
-    _amountControler.dispose();
-    _unitPriceControler.dispose();
-    _additionalInfoControler.dispose();
-    PrintedDateTimeField._dateTimeControler.dispose();
+    _authorController.dispose();
+    _editionController.dispose();
+    _amountController.dispose();
+    _unitPriceController.dispose();
+    _additionalInfoController.dispose();
+    // PrintedDateTimeField._dateTimeController.dispose();
     super.dispose();
   }
 
@@ -117,40 +131,40 @@ class _AddInStockPageState extends State<AddInStockPage> {
     super.initState();
     // Start listening to changes.
     _productNameController.addListener(_getProductName);
-    _authorControler.addListener(_getAuthorController);
-    _editionControler.addListener(_getEditionController);
-    _amountControler.addListener(_getAmountController);
-    _additionalInfoControler.addListener(_getAdditionalInfoController);
-    _unitPriceControler.addListener(_getUnitPriceController);
-    PrintedDateTimeField._dateTimeControler.addListener(_getDateCreated);
+    _authorController.addListener(_getAuthorName);
+    _editionController.addListener(_getEdition);
+    _amountController.addListener(_getAmount);
+    _additionalInfoController.addListener(_getAdditionalInfo);
+    _unitPriceController.addListener(_getUnitPrice);
+    // PrintedDateTimeField._dateTimeController.addListener(_getDateCreated);
   }
 
-  _getDateCreated() {
-    return PrintedDateTimeField._dateTimeControler.text.toString();
-  }
+  // _getDateCreated() {
+  //   return PrintedDateTimeField._dateTimeController.text.toString();
+  // }
 
   _getProductName() {
     return _productNameController.text.toString();
   }
 
-  _getAuthorController() {
-    return _authorControler.text.toString();
+  _getAuthorName() {
+    return _authorController.text.toString();
   }
 
-  _getEditionController() {
-    return _editionControler.text.toString();
+  _getEdition() {
+    return _editionController.text.toString();
   }
 
-  _getAmountController() {
-    return _amountControler.text.toString();
+  _getAmount() {
+    return _amountController.text.toString();
   }
 
-  _getAdditionalInfoController() {
-    return _additionalInfoControler.text.toString();
+  _getAdditionalInfo() {
+    return _additionalInfoController.text.toString();
   }
 
-  _getUnitPriceController() {
-    return _unitPriceControler.text.toString();
+  _getUnitPrice() {
+    return _unitPriceController.text.toString();
   }
 
   // Build form fields
@@ -169,6 +183,7 @@ class _AddInStockPageState extends State<AddInStockPage> {
       ),
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: TextFormField(
+        controller: _productNameController,
         enableSuggestions: true,
         decoration: const InputDecoration(
             labelText: "Product Name",
@@ -180,15 +195,14 @@ class _AddInStockPageState extends State<AddInStockPage> {
             enabledBorder: InputBorder.none,
             focusedBorder: InputBorder.none,
             errorBorder: InputBorder.none),
-        validator: (String? value) {
+        validator: (value) {
           if (value == null || value.isEmpty) {
             return "Product name is required.";
           }
 
           return null;
         },
-        controller: _productNameController,
-        onSaved: (String? value) {
+        onChanged: (value) {
           _productName = value;
         },
       ),
@@ -210,7 +224,7 @@ class _AddInStockPageState extends State<AddInStockPage> {
       ),
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: TextFormField(
-        controller: _authorControler,
+        controller: _authorController,
         enableSuggestions: true,
         decoration: const InputDecoration(
             labelText: "Author (optional)",
@@ -222,9 +236,10 @@ class _AddInStockPageState extends State<AddInStockPage> {
             enabledBorder: InputBorder.none,
             focusedBorder: InputBorder.none,
             errorBorder: InputBorder.none),
-        onSaved: (value) {
-          if (value == null || value.isEmpty) {
-            _authorName = _getAuthorController();
+        onChanged: (value) {
+          _authorName = value;
+          if (value.isEmpty) {
+            _authorName = "N/A";
           }
         },
       ),
@@ -246,7 +261,7 @@ class _AddInStockPageState extends State<AddInStockPage> {
       ),
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: TextFormField(
-        controller: _editionControler,
+        controller: _editionController,
         enableSuggestions: true,
         decoration: const InputDecoration(
             labelText: "Edition (optional)",
@@ -258,11 +273,11 @@ class _AddInStockPageState extends State<AddInStockPage> {
             enabledBorder: InputBorder.none,
             focusedBorder: InputBorder.none,
             errorBorder: InputBorder.none),
-        onSaved: (value) {
-          if (value == null || value.isEmpty) {
+        onChanged: (value) {
+          if (value.isEmpty) {
             _edition = "N/A";
           } else {
-            _edition = _getEditionController();
+            _edition = value;
           }
         },
       ),
@@ -293,7 +308,7 @@ class _AddInStockPageState extends State<AddInStockPage> {
         ],
         keyboardType: TextInputType.number,
         enableSuggestions: true,
-        controller: _amountControler,
+        controller: _amountController,
         decoration: const InputDecoration(
             labelText: "Amount Printed",
             hintText: "1, 2, 3 or more?",
@@ -319,8 +334,8 @@ class _AddInStockPageState extends State<AddInStockPage> {
 
           return null;
         },
-        onSaved: (value) {
-          _amount = _getAmountController();
+        onChanged: (value) {
+          _amount = value;
         },
       ),
     );
@@ -341,7 +356,7 @@ class _AddInStockPageState extends State<AddInStockPage> {
       ),
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: TextFormField(
-        controller: _unitPriceControler,
+        controller: _unitPriceController,
         inputFormatters: <TextInputFormatter>[
           FilteringTextInputFormatter.digitsOnly
         ],
@@ -374,7 +389,7 @@ class _AddInStockPageState extends State<AddInStockPage> {
 
           return null;
         },
-        onSaved: (value) {
+        onChanged: (value) {
           _unitPrice = value;
         },
       ),
@@ -409,9 +424,11 @@ class _AddInStockPageState extends State<AddInStockPage> {
         ),
         maxLength: 200,
         maxLines: 5,
-        onSaved: (value) {
-          if (value == null || value.isEmpty) {
+        onChanged: (value) {
+          if (value.isEmpty) {
             _addInfo = "N/A";
+          }else{
+            _addInfo = value;
           }
         },
       ),
@@ -420,7 +437,6 @@ class _AddInStockPageState extends State<AddInStockPage> {
 
   @override
   Widget build(BuildContext context) {
-    String sizePattern = r"^[0-9]*$";
     final ScrollController _controller = ScrollController();
 
     // Form Widgets

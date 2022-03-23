@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mon_projet/InStock/in_stock_added.dart';
 import 'package:mon_projet/home.dart';
 
 class SuccessPageInStock extends StatefulWidget {
@@ -17,7 +18,7 @@ class _SuccessPageInStockState extends State<SuccessPageInStock> {
     Timer(const Duration(milliseconds: 2000), () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder:
-            (context) => const HomePage() // (context) => isViewed != 0 ? const Onboarding() : const LoginScreen() //To enable view once on onboard screens
+            (context) => const InStockPage()
         )
     )
     );

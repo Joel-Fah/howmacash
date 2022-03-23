@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mon_projet/home.dart';
 
+import '../order/order_added.dart';
+
 class SuccessOrderPage extends StatefulWidget {
   const SuccessOrderPage({Key? key}) : super(key: key);
 
@@ -17,7 +19,7 @@ class _SuccessOrderPageState extends State<SuccessOrderPage> {
     Timer(const Duration(milliseconds: 2000), () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder:
-            (context) => const HomePage() // (context) => isViewed != 0 ? const Onboarding() : const LoginScreen() //To enable view once on onboard screens
+            (context) => const OrderPage() // (context) => isViewed != 0 ? const Onboarding() : const LoginScreen() //To enable view once on onboard screens
         )
     )
     );

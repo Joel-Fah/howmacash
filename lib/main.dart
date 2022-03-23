@@ -36,8 +36,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
       ),
       debugShowCheckedModeBanner: false,
-      home: const AddInStockPage(),
-      // home: const SuccessPageInStock(),
+      home: const HomePage(),
       // home: const SplashScreen(),
       // home: isViewed != 0 ? const Onboarding() : const LoginScreen()
     );
