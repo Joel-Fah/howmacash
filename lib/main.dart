@@ -2,23 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mon_projet/home.dart';
-import 'package:mon_projet/success_pages/success_instock.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'InStock/add_instock.dart';
 
 int? isViewed; //To enable view once on onboard screens
 
 Future<void> main() async {
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
-  SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        // statusBarColor: Colors.transparent,
-        systemNavigationBarColor: Color(0xff2E1C4C)
-      )
-  );
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences prefs = await SharedPreferences.getInstance(); //To enable view once on onboard screens
+  // Lock orientation in portrait mode only for whole app
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: [SystemUiOverlay.bottom]);
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      // statusBarColor: Colors.transparent,
+      systemNavigationBarColor: Color(0xff2E1C4C)));
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences
+      .getInstance(); //To enable view once on onboard screens
   isViewed = prefs.getInt('onBoard'); //To enable view once on onboard screens
   runApp(const MyApp());
 }
@@ -30,9 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        textTheme: GoogleFonts.poppinsTextTheme(
-          Theme.of(context).textTheme
-        ),
+        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
         primarySwatch: Colors.deepPurple,
       ),
       debugShowCheckedModeBanner: false,

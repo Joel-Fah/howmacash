@@ -3,20 +3,22 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 // import '../date_time.dart';
+import '../database/database_helper.dart';
 import '../success_pages/success_instock.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 class PrintedDateTimeField extends StatelessWidget {
   final format = DateFormat("yyyy-MM-dd HH:mm");
-  static String? _dateCreated;
-  final TextEditingController _dateTimeController = TextEditingController();
+  static String? dateCreated;
+  static final TextEditingController _dateTimeController =
+      TextEditingController();
 
-  void dispose(){
+  void dispose() {
     _dateTimeController.dispose();
   }
 
-  void initState(){
+  void initState() {
     _dateTimeController.addListener(_getDateCreated);
   }
 
@@ -77,7 +79,7 @@ class PrintedDateTimeField extends StatelessWidget {
             return null;
           },
           onChanged: (value) {
-            _dateCreated = value.toString();
+            dateCreated = value.toString();
           },
         ),
       ]),
@@ -95,12 +97,17 @@ class AddInStockPage extends StatefulWidget {
 class _AddInStockPageState extends State<AddInStockPage> {
 // Form variables
   int? id;
-  String? _productName;
-  String? _authorName;
-  String? _edition;
-  String? _amount;
-  String? _unitPrice;
-  String? _addInfo;
+  String? productName;
+  String? authorName;
+  String? edition;
+  String? amount;
+  String? unitPrice;
+  String? total;
+  String? addInfo;
+
+  int amountOrdered = 0;
+  int unitPriceOrdered = 0;
+  int totalOrdered = 0;
 
   String sizePattern = r"^[0-9]*$";
 
@@ -110,7 +117,9 @@ class _AddInStockPageState extends State<AddInStockPage> {
   final TextEditingController _editionController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _unitPriceController = TextEditingController();
-  final TextEditingController _additionalInfoController = TextEditingController();
+  final TextEditingController _totalController = TextEditingController();
+  final TextEditingController _additionalInfoController =
+      TextEditingController();
 
   // Dispose controllers
   @override
@@ -120,8 +129,9 @@ class _AddInStockPageState extends State<AddInStockPage> {
     _editionController.dispose();
     _amountController.dispose();
     _unitPriceController.dispose();
+    _totalController.dispose();
     _additionalInfoController.dispose();
-    // PrintedDateTimeField._dateTimeController.dispose();
+    // Add code before the super
     super.dispose();
   }
 
@@ -136,7 +146,7 @@ class _AddInStockPageState extends State<AddInStockPage> {
     _amountController.addListener(_getAmount);
     _additionalInfoController.addListener(_getAdditionalInfo);
     _unitPriceController.addListener(_getUnitPrice);
-    // PrintedDateTimeField._dateTimeController.addListener(_getDateCreated);
+    _totalController.addListener(_getTotal);
   }
 
   // _getDateCreated() {
@@ -167,6 +177,10 @@ class _AddInStockPageState extends State<AddInStockPage> {
     return _unitPriceController.text.toString();
   }
 
+  _getTotal() {
+    return _totalController.text.toString();
+  }
+
   // Build form fields
   Widget _buildProductName() {
     return Container(
@@ -184,6 +198,7 @@ class _AddInStockPageState extends State<AddInStockPage> {
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: TextFormField(
         controller: _productNameController,
+        textCapitalization: TextCapitalization.words,
         enableSuggestions: true,
         decoration: const InputDecoration(
             labelText: "Product Name",
@@ -203,7 +218,7 @@ class _AddInStockPageState extends State<AddInStockPage> {
           return null;
         },
         onChanged: (value) {
-          _productName = value;
+          productName = value;
         },
       ),
     );
@@ -225,6 +240,7 @@ class _AddInStockPageState extends State<AddInStockPage> {
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: TextFormField(
         controller: _authorController,
+        textCapitalization: TextCapitalization.words,
         enableSuggestions: true,
         decoration: const InputDecoration(
             labelText: "Author (optional)",
@@ -237,9 +253,9 @@ class _AddInStockPageState extends State<AddInStockPage> {
             focusedBorder: InputBorder.none,
             errorBorder: InputBorder.none),
         onChanged: (value) {
-          _authorName = value;
+          authorName = value;
           if (value.isEmpty) {
-            _authorName = "N/A";
+            authorName = "N/A";
           }
         },
       ),
@@ -262,6 +278,7 @@ class _AddInStockPageState extends State<AddInStockPage> {
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: TextFormField(
         controller: _editionController,
+        textCapitalization: TextCapitalization.words,
         enableSuggestions: true,
         decoration: const InputDecoration(
             labelText: "Edition (optional)",
@@ -275,9 +292,9 @@ class _AddInStockPageState extends State<AddInStockPage> {
             errorBorder: InputBorder.none),
         onChanged: (value) {
           if (value.isEmpty) {
-            _edition = "N/A";
+            edition = "N/A";
           } else {
-            _edition = value;
+            edition = value;
           }
         },
       ),
@@ -307,8 +324,8 @@ class _AddInStockPageState extends State<AddInStockPage> {
           FilteringTextInputFormatter.digitsOnly
         ],
         keyboardType: TextInputType.number,
-        enableSuggestions: true,
         controller: _amountController,
+        enableSuggestions: true,
         decoration: const InputDecoration(
             labelText: "Amount Printed",
             hintText: "1, 2, 3 or more?",
@@ -321,21 +338,28 @@ class _AddInStockPageState extends State<AddInStockPage> {
             errorBorder: InputBorder.none),
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "Required";
+            return "Required.";
           }
           // if (value as int < 0){
           //   return "Cannot be negative";
           // }
 
-          // RegExp regex = RegExp(sizePattern);
-          // if (!regex.hasMatch(value)) {
-          //   return "Enter a valid number";
-          // }
+          RegExp regex = RegExp(sizePattern);
+          if (!regex.hasMatch(value)) {
+            return "Enter a valid number";
+          }
 
           return null;
         },
         onChanged: (value) {
-          _amount = value;
+          amount = value;
+          if (value.isEmpty) {
+            setState(() => amountOrdered = 0);
+          } else {
+            setState(() {
+              amountOrdered = int.parse(value);
+            });
+          }
         },
       ),
     );
@@ -356,11 +380,11 @@ class _AddInStockPageState extends State<AddInStockPage> {
       ),
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: TextFormField(
-        controller: _unitPriceController,
         inputFormatters: <TextInputFormatter>[
           FilteringTextInputFormatter.digitsOnly
         ],
         keyboardType: TextInputType.number,
+        controller: _unitPriceController,
         enableSuggestions: true,
         decoration: const InputDecoration(
             labelText: "Unit Price",
@@ -376,21 +400,83 @@ class _AddInStockPageState extends State<AddInStockPage> {
             errorBorder: InputBorder.none),
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "Required";
+            return "Required.";
           }
           // if (value as int < 0){
           //   return "Cannot be negative";
           // }
 
-          // RegExp regex = RegExp(sizePattern);
-          // if (!regex.hasMatch(value)) {
-          //   return "Enter a valid number";
-          // }
+          RegExp regex = RegExp(sizePattern);
+          if (!regex.hasMatch(value)) {
+            return "Enter a valid number";
+          }
 
           return null;
         },
         onChanged: (value) {
-          _unitPrice = value;
+          unitPrice = value;
+          if (value.isEmpty) {
+            setState(() => unitPriceOrdered = 0);
+          } else {
+            setState(() {
+              unitPriceOrdered = int.parse(value);
+            });
+          }
+        },
+      ),
+    );
+  }
+
+  calculateTotal() {
+    return "${amountOrdered * unitPriceOrdered}";
+  }
+
+  Widget _buildTotal() {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.grey[200],
+          boxShadow: const [
+            BoxShadow(
+                offset: Offset(0, 10), blurRadius: 50, color: Color(0xffEEEEEE))
+          ]),
+      alignment: Alignment.center,
+      margin: const EdgeInsets.only(
+        top: 10,
+      ),
+      padding: const EdgeInsets.only(left: 20, right: 20),
+      child: TextFormField(
+        controller: _totalController,
+        readOnly: true,
+        inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.digitsOnly
+        ],
+        keyboardType: TextInputType.number,
+        enableSuggestions: true,
+        decoration: InputDecoration(
+            labelText: "Total",
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            hintText: calculateTotal(),
+            hintStyle: const TextStyle(
+              color: Color(0xff707070),
+              fontSize: 15,
+            ),
+            suffixText: "XAF",
+            suffixStyle: const TextStyle(color: Colors.green),
+            enabledBorder: InputBorder.none,
+            focusedBorder: InputBorder.none,
+            errorBorder: InputBorder.none),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            value = calculateTotal();
+            // return "Cannot be empty";
+          }
+        },
+        onChanged: (value) {
+          setState(() {
+            value = calculateTotal();
+            total = value;
+          });
         },
       ),
     );
@@ -411,6 +497,8 @@ class _AddInStockPageState extends State<AddInStockPage> {
       ),
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: TextFormField(
+        controller: _additionalInfoController,
+        textCapitalization: TextCapitalization.sentences,
         enableSuggestions: true,
         decoration: const InputDecoration(
           labelText: "Additional Info",
@@ -426,9 +514,9 @@ class _AddInStockPageState extends State<AddInStockPage> {
         maxLines: 5,
         onChanged: (value) {
           if (value.isEmpty) {
-            _addInfo = "N/A";
-          }else{
-            _addInfo = value;
+            addInfo = "N/A";
+          } else {
+            addInfo = value;
           }
         },
       ),
@@ -529,14 +617,21 @@ class _AddInStockPageState extends State<AddInStockPage> {
                                     _buildDatePrinted(),
                                     Row(
                                       children: [
-                                        Expanded(child: _buildAmount()),
+                                        Expanded(
+                                          child: _buildAmount(),
+                                        ),
                                         const SizedBox(
                                           width: 5,
                                         ),
-                                        Expanded(child: _buildUnitPrice()),
-                                        const SizedBox(
-                                          width: 5,
+                                        Expanded(
+                                          child: _buildUnitPrice(),
                                         ),
+                                        // const SizedBox(
+                                        //   width: 5,
+                                        // ),
+                                        // Expanded(
+                                        //   child: _buildTotal(),
+                                        // )
                                       ],
                                     ),
                                     _buildAdditionalInfo(),
@@ -550,62 +645,96 @@ class _AddInStockPageState extends State<AddInStockPage> {
                                         style: ElevatedButton.styleFrom(
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(10.0)),
+                                                  BorderRadius.circular(10.0),),
                                           padding: const EdgeInsets.all(10.0),
                                         ),
-                                        onPressed: () {
+                                        onPressed: () async {
                                           if (_addInStockFormKey.currentState!
                                               .validate()) {
-                                            if (_productName != null) {
+                                            if (productName != null) {
                                               debugPrint("Product name: " +
-                                                  _productName!);
+                                                  productName!);
                                             } else {
                                               debugPrint(
                                                   "No product name found!");
                                             }
-                                            if (_authorName != null) {
+                                            if (authorName != null) {
                                               debugPrint("Author name: " +
-                                                  _authorName!);
+                                                  authorName!);
                                             } else {
                                               debugPrint(
                                                   "No author name found!");
                                             }
-                                            if (_edition != null) {
+                                            if (edition != null) {
                                               debugPrint(
-                                                  "Edition: " + _edition!);
+                                                  "Edition: " + edition!);
                                             } else {
                                               debugPrint("No edition found!");
                                             }
                                             if (PrintedDateTimeField
-                                                    ._dateCreated !=
+                                                    .dateCreated !=
                                                 null) {
                                               debugPrint("Date created: " +
                                                   PrintedDateTimeField
-                                                      ._dateCreated!);
+                                                      .dateCreated!);
                                             } else {
                                               debugPrint("No Date found!");
                                             }
-                                            if (_amount != null) {
-                                              debugPrint("Amount: " + _amount!);
+                                            if (amount != null) {
+                                              debugPrint("Amount: " + amount!);
                                             } else {
                                               debugPrint(
                                                   "No amount name found!");
                                             }
-                                            if (_unitPrice != null) {
+                                            if (unitPrice != null) {
                                               debugPrint(
-                                                  "Unit Price: " + _unitPrice!);
+                                                  "Unit Price: " + unitPrice!);
                                             } else {
                                               debugPrint(
                                                   "No Unit Price found!");
                                             }
-                                            if (_addInfo != null) {
+                                            if (addInfo != null) {
                                               debugPrint("Additional Info: " +
-                                                  _addInfo!);
+                                                  addInfo!);
                                             } else {
                                               debugPrint(
                                                   "No Additional Info found!");
                                             }
 
+                                            // Add to instocks home page
+                                            await DatabaseHelper.instance.add(
+                                              InStocks(
+                                                productName:
+                                                    _productNameController.text,
+                                                authorName:
+                                                    _authorController.text,
+                                                edition:
+                                                    _editionController.text,
+                                                amount: _amountController.text,
+                                                unitPrice:
+                                                    _unitPriceController.text,
+                                                total: _totalController.text,
+                                                dateCreated:
+                                                    PrintedDateTimeField
+                                                        ._dateTimeController
+                                                        .text,
+                                                addInfo:
+                                                    _additionalInfoController
+                                                        .text,
+                                              ),
+                                            );
+                                            setState(() {
+                                              _productNameController.clear();
+                                              _authorController.clear();
+                                              _editionController.clear();
+                                              _amountController.clear();
+                                              _unitPriceController.clear();
+                                              _totalController.clear();
+                                              PrintedDateTimeField
+                                                  ._dateTimeController
+                                                  .clear();
+                                              _additionalInfoController.clear();
+                                            });
                                             //  Go to the next page (HomePage for now)...
                                             Navigator.pushReplacement(
                                               context,

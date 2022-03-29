@@ -121,6 +121,7 @@ class _AddOrderPageState extends State<AddOrderPage> {
       ),
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: TextFormField(
+        controller: _nameController,
         textCapitalization: TextCapitalization.words,
         enableSuggestions: true,
         decoration: const InputDecoration(
@@ -162,6 +163,7 @@ class _AddOrderPageState extends State<AddOrderPage> {
       ),
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: TextFormField(
+        controller: _cityController,
         textCapitalization: TextCapitalization.sentences,
         enableSuggestions: true,
         decoration: const InputDecoration(
@@ -199,23 +201,23 @@ class _AddOrderPageState extends State<AddOrderPage> {
       ),
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: TextFormField(
+        controller: _phoneController,
         inputFormatters: <TextInputFormatter>[
           FilteringTextInputFormatter.digitsOnly
         ],
         keyboardType: TextInputType.phone,
         enableSuggestions: true,
         decoration: const InputDecoration(
-          labelText: "Phone number",
-          hintText: "Enter phone number",
-          hintStyle: TextStyle(
-            color: Color(0xff707070),
-            fontSize: 15,
-          ),
-          prefixText: "+237 ",
-          enabledBorder: InputBorder.none,
-          focusedBorder: InputBorder.none,
-          errorBorder: InputBorder.none
-        ),
+            labelText: "Phone number",
+            hintText: "Enter phone number",
+            hintStyle: TextStyle(
+              color: Color(0xff707070),
+              fontSize: 15,
+            ),
+            prefixText: "+237 ",
+            enabledBorder: InputBorder.none,
+            focusedBorder: InputBorder.none,
+            errorBorder: InputBorder.none),
         validator: (value) {
           if (value == null || value.isEmpty) {
             return "Phone number is required.";
@@ -261,6 +263,7 @@ class _AddOrderPageState extends State<AddOrderPage> {
           FilteringTextInputFormatter.digitsOnly
         ],
         keyboardType: TextInputType.number,
+        controller: _amountController,
         enableSuggestions: true,
         decoration: const InputDecoration(
             labelText: "Amount Printed",
@@ -289,10 +292,10 @@ class _AddOrderPageState extends State<AddOrderPage> {
         },
         onChanged: (value) {
           _amount = value;
-          if(value.isEmpty){
+          if (value.isEmpty) {
             setState(() => amountOrdered = 0);
-          }else{
-            setState((){
+          } else {
+            setState(() {
               amountOrdered = int.parse(value);
             });
           }
@@ -320,6 +323,7 @@ class _AddOrderPageState extends State<AddOrderPage> {
           FilteringTextInputFormatter.digitsOnly
         ],
         keyboardType: TextInputType.number,
+        controller: _unitPriceController,
         enableSuggestions: true,
         decoration: const InputDecoration(
             labelText: "Unit Price",
@@ -350,10 +354,10 @@ class _AddOrderPageState extends State<AddOrderPage> {
         },
         onChanged: (value) {
           _unitPrice = value;
-          if(value.isEmpty){
+          if (value.isEmpty) {
             setState(() => unitPriceOrdered = 0);
-          }else{
-            setState((){
+          } else {
+            setState(() {
               unitPriceOrdered = int.parse(value);
             });
           }
@@ -362,7 +366,7 @@ class _AddOrderPageState extends State<AddOrderPage> {
     );
   }
 
-  calculateTotal(){
+  calculateTotal() {
     return "${amountOrdered * unitPriceOrdered}";
   }
 
@@ -389,23 +393,19 @@ class _AddOrderPageState extends State<AddOrderPage> {
         keyboardType: TextInputType.number,
         enableSuggestions: true,
         decoration: InputDecoration(
-            labelText: "Total",
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            hintText: calculateTotal(),
-            hintStyle: const TextStyle(
-              color: Color(0xff707070),
-              fontSize: 15,
-            ),
-            suffixText: "XAF",
-            suffixStyle: const TextStyle(color: Colors.green),
-            enabledBorder: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            errorBorder: InputBorder.none),
-        validator: (value){
-          if (value == null || value.isEmpty){
-            return "Cannot be empty";
-          }
-        },
+          labelText: "Total",
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          hintText: calculateTotal(),
+          hintStyle: const TextStyle(
+            color: Color(0xff707070),
+            fontSize: 15,
+          ),
+          suffixText: "XAF",
+          suffixStyle: const TextStyle(color: Colors.green),
+          enabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          errorBorder: InputBorder.none,
+        ),
         onChanged: (value) {
           setState(() {
             value = calculateTotal();
@@ -431,6 +431,7 @@ class _AddOrderPageState extends State<AddOrderPage> {
       ),
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: TextFormField(
+        controller: _addInfoController,
         textCapitalization: TextCapitalization.sentences,
         enableSuggestions: true,
         decoration: const InputDecoration(
@@ -692,7 +693,7 @@ class OrderDateTimeField extends StatelessWidget {
   final format = DateFormat("yyyy-MM-dd HH:mm");
   static String? _dateOrderCreated;
   final TextEditingController _dateTimeOrderController =
-  TextEditingController();
+      TextEditingController();
 
   void dispose() {
     _dateTimeOrderController.dispose();
@@ -747,7 +748,7 @@ class OrderDateTimeField extends StatelessWidget {
               final time = await showTimePicker(
                 context: context,
                 initialTime:
-                TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+                    TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
               );
               return DateTimeField.combine(date, time);
             } else {
@@ -773,7 +774,7 @@ class DeliveryDateTimeField extends StatelessWidget {
   final format = DateFormat("yyyy-MM-dd HH:mm");
   static String? _dateDeliveryCreated;
   final TextEditingController _dateTimeDeliveryController =
-  TextEditingController();
+      TextEditingController();
 
   void dispose() {
     _dateTimeDeliveryController.dispose();
@@ -825,7 +826,7 @@ class DeliveryDateTimeField extends StatelessWidget {
               final time = await showTimePicker(
                 context: context,
                 initialTime:
-                TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+                    TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
               );
               return DateTimeField.combine(date, time);
             } else {

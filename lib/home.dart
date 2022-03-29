@@ -122,7 +122,7 @@ class HomePage extends StatelessWidget {
                                 color: Colors.white
                             ),
                             textAlign: TextAlign.justify,
-                          )
+                          ),
                         ],
                       ),
                     )
