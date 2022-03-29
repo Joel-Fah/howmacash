@@ -565,11 +565,12 @@ class _AddInStockPageState extends State<AddInStockPage> {
                     Row(
                       children: const [
                         Expanded(
-                            child: Text(
-                          "Current Stock ID",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500),
-                        )),
+                          child: Text(
+                            "Current Stock ID",
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w500),
+                          ),
+                        ),
                         Text(
                           "STOCK0025",
                           style: TextStyle(
@@ -626,12 +627,12 @@ class _AddInStockPageState extends State<AddInStockPage> {
                                         Expanded(
                                           child: _buildUnitPrice(),
                                         ),
-                                        // const SizedBox(
-                                        //   width: 5,
-                                        // ),
-                                        // Expanded(
-                                        //   child: _buildTotal(),
-                                        // )
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        Expanded(
+                                          child: _buildTotal(),
+                                        )
                                       ],
                                     ),
                                     _buildAdditionalInfo(),
@@ -644,8 +645,9 @@ class _AddInStockPageState extends State<AddInStockPage> {
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
                                           padding: const EdgeInsets.all(10.0),
                                         ),
                                         onPressed: () async {
