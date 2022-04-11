@@ -784,7 +784,8 @@ class _AddInStockPageState extends State<AddInStockPage> {
                 ),
               ),
             ),
-          )),
+          ),
+      ),
     );
   }
 }
